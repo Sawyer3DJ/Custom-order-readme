@@ -1,0 +1,32 @@
+Beefeater Quick Order body { font-family: Arial, sans-serif; padding: 20px; max-width: 500px; margin: auto; } h1, h2 { text-align: center; } .menu-section { margin-bottom: 20px; } .menu-item { margin-bottom: 10px; } button { padding: 10px; margin-top: 10px; width: 100%; } textarea { width: 100%; height: 60px; margin-top: 10px; } Welcome to Beefeater Table Quick Order 
+
+Select Table:
+Table 1 Table 2 
+
+Sides 
+
+Large Fries
+
+Cheesy Loaded Fries
+
+Korean Chicken Fries
+
+Large Onion Rings
+
+Drinks 
+
+Water
+
+Coca Cola
+
+Fanta
+
+Latte
+
+Cappuccino
+
+Additional Comments:
+
+Submit Order
+
+function submitOrder() { const table = document.getElementById('table-select').value; const comments = document.getElementById('comments').value; const checkedItems = Array.from(document.querySelectorAll('input[type=checkbox]')) .filter(i => i.checked) .map(i => i.value); const order = { table: table, items: checkedItems, comments: comments, timestamp: new Date().toISOString() }; // Send order to local server (hosted on manager's laptop) fetch('http://localhost:5000/receive-order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(order) }) .then(res => res.text()) .then(msg => alert('Order submitted successfully!')) .catch(err => alert('Failed to send order. Ensure the receiver app is running.')); } 
